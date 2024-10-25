@@ -1,0 +1,18 @@
+name: lint_python
+on:
+  pull_request:
+  push:
+  #  branches: [master]
+jobs:
+  lint_python:
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.12"
+      - run: pip install black isort
+      - run: black --check .
+      - run: isort --profile black --recursive .
